@@ -37,6 +37,8 @@
     "@capacitor/keyboard": "8.0.5",
     "@capacitor/local-notifications": "^8.0.0",
     "@capacitor/status-bar": "8.0.2",
+    "@emoji-mart/data": "^1.2.1",
+    "@emoji-mart/react": "^1.1.1",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/newsreader": "^5.2.10",
     "@ionic/react": "^8.5.0",
@@ -46,11 +48,18 @@
     "@types/react-router-dom": "^5.3.3",
     "aws-amplify": "^6.18.0",
     "date-fns": "^4.1.0",
+    "emoji-mart": "^5.6.0",
     "ionicons": "^7.4.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4"
+  },
+  "overrides": {
+    "@emoji-mart/react": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.23.0",

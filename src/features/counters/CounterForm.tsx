@@ -1,5 +1,6 @@
 import { COUNTER_COLORS } from './counterFields';
 import { useCounterForm } from './useCounterForm';
+import { EmojiField } from './EmojiField';
 import './counters.css';
 
 /** Create-counter form. Presentational shell over useCounterForm. */
@@ -8,15 +9,7 @@ export function CounterForm({ onDone }: { onDone: () => void }) {
 
   return (
     <div className="cform">
-      <label className="cform__field">
-        <span className="cform__label">Emoji</span>
-        <input
-          className="cform__emoji"
-          value={f.values.emoji}
-          maxLength={4}
-          onChange={(e) => f.set('emoji', e.target.value)}
-        />
-      </label>
+      <EmojiField value={f.values.emoji} onSelect={(emoji) => f.set('emoji', emoji)} />
       <label className="cform__field">
         <span className="cform__label">Name</span>
         <input

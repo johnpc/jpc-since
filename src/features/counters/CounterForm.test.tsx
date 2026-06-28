@@ -9,6 +9,15 @@ const form = vi.hoisted(() => ({
   submit: vi.fn(),
 }));
 vi.mock('./useCounterForm', () => ({ useCounterForm: () => form }));
+// EmojiField pulls in emoji-mart (heavy ESM) and is tested on its own; stub it
+// here to a simple button that reports a pick.
+vi.mock('./EmojiField', () => ({
+  EmojiField: ({ onSelect }: { onSelect: (e: string) => void }) => (
+    <button type="button" onClick={() => onSelect('💇')}>
+      emoji-field
+    </button>
+  ),
+}));
 
 import { CounterForm } from './CounterForm';
 
@@ -24,7 +33,7 @@ describe('CounterForm', () => {
     expect(form.set).toHaveBeenCalledWith('title', 'Oil change');
     fireEvent.click(screen.getByLabelText('color #2563eb'));
     expect(form.set).toHaveBeenCalledWith('hexColor', '#2563eb');
-    fireEvent.change(screen.getByDisplayValue('⏱️'), { target: { value: '💇' } });
+    fireEvent.click(screen.getByRole('button', { name: 'emoji-field' }));
     expect(form.set).toHaveBeenCalledWith('emoji', '💇');
     fireEvent.change(screen.getByPlaceholderText('e.g. 42'), { target: { value: '30' } });
     expect(form.set).toHaveBeenCalledWith('reminderDays', '30');
