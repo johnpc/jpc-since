@@ -50,7 +50,7 @@ export function Counter({
         <span className="counter__elapsed since-elapsed">
           {formatElapsed(counter.sinceAt, now)}
         </span>
-        <span className="counter__since since-meta">since {counter.title}</span>
+        <span className="counter__since">since {counter.title}</span>
       </button>
       <button
         type="button"
@@ -58,7 +58,7 @@ export function Counter({
         disabled={resetting}
         onClick={() => onReset(counter)}
       >
-        {resetting ? 'Resetting…' : 'It just happened — reset'}
+        {resetting ? 'Resetting…' : 'Reset to now'}
       </button>
     </article>
   );

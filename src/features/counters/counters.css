@@ -70,6 +70,9 @@
 
 .counter__since {
   display: block;
+  font-family: var(--since-font-sans);
+  font-size: 13px;
+  line-height: 1.4;
   color: var(--since-on-card-secondary);
 }
 

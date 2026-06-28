@@ -21,7 +21,7 @@
   --since-text-tertiary: #71717a;
   /* Text that sits on a user's colored card surface. */
   --since-on-card: #ffffff;
-  --since-on-card-secondary: rgba(255, 255, 255, 0.72);
+  --since-on-card-secondary: rgba(255, 255, 255, 0.88);
 
   /* ---- Color: accent (the only fixed brand hue) ---- */
   --since-accent: #f59e0b;
