@@ -7,6 +7,8 @@ const client = vi.hoisted(() => ({
   signUp: vi.fn(),
   confirmSignUp: vi.fn(),
   signOut: vi.fn(),
+  updatePassword: vi.fn(),
+  deleteAccount: vi.fn(),
 }));
 vi.mock('./authClient', () => client);
 
@@ -14,13 +16,15 @@ import { AuthProvider } from './AuthProvider';
 import { useAuth } from './useAuth';
 
 function Probe() {
-  const { status, email, signIn, signOut } = useAuth();
+  const { status, email, signIn, signOut, changePassword, deleteAccount } = useAuth();
   return (
     <div>
       <span data-testid="status">{status}</span>
       <span data-testid="email">{email ?? '-'}</span>
       <button onClick={() => signIn('a@b.com', 'pw')}>in</button>
       <button onClick={() => signOut()}>out</button>
+      <button onClick={() => changePassword('old', 'new')}>chpw</button>
+      <button onClick={() => deleteAccount()}>del</button>
     </div>
   );
 }
@@ -65,5 +69,31 @@ describe('AuthProvider', () => {
     await waitFor(() => expect(screen.getByTestId('status')).toHaveTextContent('authenticated'));
     await act(async () => screen.getByText('out').click());
     await waitFor(() => expect(screen.getByTestId('status')).toHaveTextContent('unauthenticated'));
+  });
+
+  it('changePassword delegates to the client', async () => {
+    client.currentEmail.mockResolvedValue('a@b.com');
+    client.updatePassword.mockResolvedValue(undefined);
+    render(
+      <AuthProvider>
+        <Probe />
+      </AuthProvider>,
+    );
+    await act(async () => screen.getByText('chpw').click());
+    expect(client.updatePassword).toHaveBeenCalledWith('old', 'new');
+  });
+
+  it('deleteAccount clears the session', async () => {
+    client.currentEmail.mockResolvedValue('a@b.com');
+    client.deleteAccount.mockResolvedValue(undefined);
+    render(
+      <AuthProvider>
+        <Probe />
+      </AuthProvider>,
+    );
+    await waitFor(() => expect(screen.getByTestId('status')).toHaveTextContent('authenticated'));
+    await act(async () => screen.getByText('del').click());
+    await waitFor(() => expect(screen.getByTestId('status')).toHaveTextContent('unauthenticated'));
+    expect(client.deleteAccount).toHaveBeenCalled();
   });
 });

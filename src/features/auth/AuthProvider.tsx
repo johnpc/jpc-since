@@ -38,8 +38,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setState({ status: 'unauthenticated', email: null });
   }, []);
 
+  const changePassword = useCallback(
+    (oldPassword: string, newPassword: string) =>
+      authClient.updatePassword(oldPassword, newPassword),
+    [],
+  );
+
+  const deleteAccount = useCallback(async () => {
+    await authClient.deleteAccount();
+    setState({ status: 'unauthenticated', email: null });
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ ...state, signIn, signUp, confirmSignUp, signOut, refresh }}>
+    <AuthContext.Provider
+      value={{
+        ...state,
+        signIn,
+        signUp,
+        confirmSignUp,
+        signOut,
+        changePassword,
+        deleteAccount,
+        refresh,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

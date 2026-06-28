@@ -8,6 +8,8 @@ import {
   signUp as amplifySignUp,
   confirmSignUp as amplifyConfirmSignUp,
   signOut as amplifySignOut,
+  updatePassword as amplifyUpdatePassword,
+  deleteUser as amplifyDeleteUser,
 } from 'aws-amplify/auth';
 import type { SignUpResult } from './types';
 
@@ -40,4 +42,14 @@ export async function confirmSignUp(email: string, code: string): Promise<void> 
 
 export async function signOut(): Promise<void> {
   await amplifySignOut();
+}
+
+/** Change the signed-in user's password (requires the current one). */
+export async function updatePassword(oldPassword: string, newPassword: string): Promise<void> {
+  await amplifyUpdatePassword({ oldPassword, newPassword });
+}
+
+/** Permanently delete the signed-in user's Cognito account. */
+export async function deleteAccount(): Promise<void> {
+  await amplifyDeleteUser();
 }

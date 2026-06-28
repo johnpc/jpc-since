@@ -12,7 +12,9 @@ import {
 import { useCounters } from './useCounters';
 import { useReset } from '../history/useReset';
 import { useReminders } from '../reminders/useReminders';
-import { useAuth } from '../auth/useAuth';
+import { useNow } from './useNow';
+import { sortCounters } from './sortCounters';
+import { usePreferences } from '../settings/usePreferences';
 import { Counter } from './Counter';
 import { CounterForm } from './CounterForm';
 import './counters.css';
@@ -20,10 +22,12 @@ import './counters.css';
 /** Home screen: the user's count-up cards + a create-counter modal. */
 export function Counters() {
   const { counters, isLoading, deleteCounter } = useCounters();
-  const { signOut } = useAuth();
   const { reset, resettingId } = useReset();
+  const { sort } = usePreferences();
   const [showForm, setShowForm] = useState(false);
-  const now = new Date();
+  // Ticks every second so the "since" figures count up live (not just on mount).
+  const now = useNow();
+  const ordered = sortCounters(counters, sort);
   useReminders(counters);
 
   return (
@@ -33,7 +37,7 @@ export function Counters() {
           <IonTitle>Since</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={() => setShowForm(true)}>Add</IonButton>
-            <IonButton onClick={signOut}>Sign out</IonButton>
+            <IonButton routerLink="/settings">Settings</IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
@@ -44,7 +48,7 @@ export function Counters() {
           </p>
         )}
         <div className="counters__grid">
-          {counters.map((c) => (
+          {ordered.map((c) => (
             <Counter
               key={c.id}
               counter={c}

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { CounterRecord } from '../../lib/dataClient';
 
@@ -12,8 +12,8 @@ const reset = vi.hoisted(() => ({ reset: vi.fn(), resettingId: null }));
 vi.mock('../history/useReset', () => ({ useReset: () => reset }));
 const reminders = vi.hoisted(() => ({ useReminders: vi.fn() }));
 vi.mock('../reminders/useReminders', () => reminders);
-const auth = vi.hoisted(() => ({ signOut: vi.fn() }));
-vi.mock('../auth/useAuth', () => ({ useAuth: () => auth }));
+const prefs = vi.hoisted(() => ({ sort: 'oldest' as 'oldest' | 'newest', updateSort: vi.fn() }));
+vi.mock('../settings/usePreferences', () => ({ usePreferences: () => prefs }));
 vi.mock('./Counter', () => ({
   Counter: ({ counter }: { counter: CounterRecord }) => <div>card:{counter.title}</div>,
 }));
@@ -36,18 +36,17 @@ describe('Counters', () => {
 
   it('renders a card per counter', () => {
     counters.counters = [
-      { id: 'c1', title: 'Haircut' } as CounterRecord,
-      { id: 'c2', title: 'Oil' } as CounterRecord,
+      { id: 'c1', title: 'Haircut', sinceAt: '2026-06-01T00:00:00Z' } as CounterRecord,
+      { id: 'c2', title: 'Oil', sinceAt: '2026-06-10T00:00:00Z' } as CounterRecord,
     ];
     render(<Counters />);
     expect(screen.getByText('card:Haircut')).toBeInTheDocument();
     expect(screen.getByText('card:Oil')).toBeInTheDocument();
   });
 
-  it('signs out from the toolbar', () => {
+  it('links to settings from the toolbar', () => {
     render(<Counters />);
-    fireEvent.click(screen.getByText('Sign out'));
-    expect(auth.signOut).toHaveBeenCalled();
+    expect(screen.getByText('Settings')).toBeInTheDocument();
   });
 
   it('renders a closed create modal that hosts the form', () => {
