@@ -8,11 +8,13 @@ export function Counter({
   counter,
   now,
   onReset,
+  onDelete,
   resetting,
 }: {
   counter: CounterRecord;
   now: Date;
   onReset: (counter: CounterRecord) => void;
+  onDelete: (counter: CounterRecord) => void;
   resetting: boolean;
 }) {
   const history = useHistory();
@@ -22,24 +24,39 @@ export function Counter({
       data-testid="counter-card"
       data-counter-title={counter.title}
       style={{ background: counter.hexColor }}
-      onClick={() => history.push(`/counter/${counter.id}`)}
     >
       <div className="counter__top">
         <span className="counter__emoji" aria-hidden="true">
           {counter.emoji}
         </span>
         <span className="counter__title">{counter.title}</span>
+        <button
+          type="button"
+          className="counter__delete"
+          aria-label={`Delete ${counter.title}`}
+          onClick={() => onDelete(counter)}
+        >
+          ✕
+        </button>
       </div>
-      <p className="counter__elapsed since-elapsed">{formatElapsed(counter.sinceAt, now)}</p>
-      <p className="counter__since since-meta">since {counter.title}</p>
+      {/* The tappable area that opens history — separate from the action
+          buttons so they never double-trigger navigation. */}
+      <button
+        type="button"
+        className="counter__open"
+        aria-label={`Open ${counter.title} history`}
+        onClick={() => history.push(`/counter/${counter.id}`)}
+      >
+        <span className="counter__elapsed since-elapsed">
+          {formatElapsed(counter.sinceAt, now)}
+        </span>
+        <span className="counter__since since-meta">since {counter.title}</span>
+      </button>
       <button
         type="button"
         className="counter__reset"
         disabled={resetting}
-        onClick={(e) => {
-          e.stopPropagation();
-          onReset(counter);
-        }}
+        onClick={() => onReset(counter)}
       >
         {resetting ? 'Resetting…' : 'It just happened — reset'}
       </button>

@@ -19,7 +19,7 @@ import './counters.css';
 
 /** Home screen: the user's count-up cards + a create-counter modal. */
 export function Counters() {
-  const { counters, isLoading } = useCounters();
+  const { counters, isLoading, deleteCounter } = useCounters();
   const { signOut } = useAuth();
   const { reset, resettingId } = useReset();
   const [showForm, setShowForm] = useState(false);
@@ -50,6 +50,7 @@ export function Counters() {
               counter={c}
               now={now}
               onReset={reset}
+              onDelete={(counter) => deleteCounter(counter.id)}
               resetting={resettingId === c.id}
             />
           ))}

@@ -5,6 +5,7 @@ import type { CounterRecord } from '../../lib/dataClient';
 const counters = vi.hoisted(() => ({
   counters: [] as CounterRecord[],
   isLoading: false,
+  deleteCounter: vi.fn(),
 }));
 vi.mock('./useCounters', () => ({ useCounters: () => counters }));
 const reset = vi.hoisted(() => ({ reset: vi.fn(), resettingId: null }));

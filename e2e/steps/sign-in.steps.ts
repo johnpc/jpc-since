@@ -32,5 +32,6 @@ When('the test user signs in with their credentials', async ({ page }) => {
 
 Then('the user lands on the counters home', async ({ page }) => {
   await expect(page).toHaveURL(/\/home$/, { timeout: 15_000 });
-  await expect(page.getByRole('heading', { name: 'Since' })).toBeVisible();
+  // The "Add" toolbar button is unique to the authenticated home screen.
+  await expect(page.getByRole('button', { name: 'Add' })).toBeVisible();
 });

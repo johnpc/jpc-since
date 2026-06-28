@@ -13,9 +13,9 @@ Feature: Create and reset a counter
     Given the test user opens the sign-in screen
     And the test user signs in with their credentials
 
-  Scenario: A new counter appears on the home screen reading "just now"
+  Scenario: A new counter appears on the home screen counting from just now
     When the test user creates a counter named "QA Haircut"
-    Then the counter "QA Haircut" is shown reading "just now"
+    Then the counter "QA Haircut" is shown counting up from seconds ago
 
   Scenario: Resetting a counter logs the interval and returns it to now
     Given the test user has a counter named "QA Oil Change"

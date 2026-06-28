@@ -9,6 +9,6 @@ Feature: Authenticated journey (smoke)
     And the test user signs in with their credentials
     Then the user lands on the counters home
     When the test user creates a counter named "QA Smoke"
-    Then the counter "QA Smoke" is shown reading "just now"
+    Then the counter "QA Smoke" is shown counting up from seconds ago
     When the test user resets the counter "QA Smoke"
     Then the counter "QA Smoke" history shows at least one reset
