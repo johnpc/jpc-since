@@ -1,0 +1,161 @@
+/**
+ * Since design tokens — the single source of truth for the UI theme.
+ * Documented in docs/STYLE_GUIDE.md. Components must consume these tokens
+ * (or the role classes below), never hardcoded hex/px values.
+ *
+ * The app is dark-only, so the palette is defined unconditionally and also fed
+ * into Ionic's --ion-* variables so Ionic components inherit it. Per-counter
+ * `hexColor` is the one colorful element — applied as a card surface in code.
+ */
+
+:root {
+  /* ---- Color: neutral canvas ---- */
+  --since-bg: #0a0a0b;
+  --since-surface: #161719;
+  --since-surface-2: #1f2024;
+  --since-hairline: rgba(255, 255, 255, 0.08);
+
+  /* ---- Color: text ramp ---- */
+  --since-text: #f4f4f5;
+  --since-text-secondary: #a1a1aa;
+  --since-text-tertiary: #71717a;
+  /* Text that sits on a user's colored card surface. */
+  --since-on-card: #ffffff;
+  --since-on-card-secondary: rgba(255, 255, 255, 0.72);
+
+  /* ---- Color: accent (the only fixed brand hue) ---- */
+  --since-accent: #f59e0b;
+  --since-accent-pressed: #d97706;
+  --since-on-accent: #0a0a0b;
+
+  /* ---- Color: status ---- */
+  --since-success: #22c55e;
+  --since-warning: #f59e0b;
+  --since-danger: #ef4444;
+
+  /* ---- Type families ---- */
+  --since-font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --since-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* ---- Spacing (4px grid) ---- */
+  --since-space-1: 4px;
+  --since-space-2: 8px;
+  --since-space-3: 12px;
+  --since-space-4: 16px;
+  --since-space-6: 24px;
+  --since-space-8: 32px;
+
+  /* iOS safe-area top inset (status bar / Dynamic Island). Custom top bars that
+     render inside IonContent must add this to their top padding so content
+     clears the notch. Falls back to 0 on platforms without an inset. Requires
+     viewport-fit=cover (set in index.html). */
+  --since-safe-top: env(safe-area-inset-top, 0px);
+
+  /* ---- Radius ---- */
+  --since-radius-card: 14px;
+  --since-radius-thumb: 8px;
+  --since-radius-pill: 9999px;
+
+  /* ---- Map onto Ionic so its components inherit the theme ---- */
+  --ion-background-color: var(--since-bg);
+  --ion-background-color-rgb: 10, 10, 11;
+  --ion-text-color: var(--since-text);
+  --ion-text-color-rgb: 244, 244, 245;
+  --ion-font-family: var(--since-font-sans);
+
+  --ion-color-primary: var(--since-accent);
+  --ion-color-primary-rgb: 245, 158, 11;
+  --ion-color-primary-contrast: var(--since-on-accent);
+  --ion-color-primary-contrast-rgb: 10, 10, 11;
+  --ion-color-primary-shade: var(--since-accent-pressed);
+  --ion-color-primary-tint: #f7ad33;
+
+  --ion-toolbar-background: var(--since-bg);
+  --ion-tab-bar-background: var(--since-bg);
+  --ion-item-background: var(--since-surface);
+}
+
+/* Force dark color-scheme; the design is dark-only. */
+:root {
+  color-scheme: dark;
+}
+
+/* ============================================================
+ * Typography roles — from docs/STYLE_GUIDE.md scale table.
+ * Use these classes instead of ad-hoc font rules in components.
+ * ============================================================ */
+
+.since-h1 {
+  font-family: var(--since-font-serif);
+  font-size: 32px;
+  line-height: 1.12;
+  font-weight: 600;
+  color: var(--since-text);
+}
+
+.since-hero {
+  font-family: var(--since-font-serif);
+  font-size: 26px;
+  line-height: 1.15;
+  font-weight: 600;
+  color: var(--since-text);
+}
+
+.since-headline {
+  font-family: var(--since-font-serif);
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--since-text);
+}
+
+.since-dek {
+  font-family: var(--since-font-sans);
+  font-size: 18px;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--since-text-secondary);
+}
+
+.since-body {
+  font-family: var(--since-font-serif);
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 400;
+  color: var(--since-text);
+}
+
+/* The big "4 weeks" elapsed figure on a counter card. */
+.since-elapsed {
+  font-family: var(--since-font-serif);
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: var(--since-on-card);
+}
+
+.since-kicker {
+  font-family: var(--since-font-sans);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--since-accent);
+}
+
+.since-label {
+  font-family: var(--since-font-sans);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--since-text);
+}
+
+.since-meta {
+  font-family: var(--since-font-sans);
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--since-text-tertiary);
+}

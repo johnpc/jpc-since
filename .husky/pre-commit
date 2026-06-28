@@ -1,0 +1,7 @@
+# Quality gates — must pass before any commit lands.
+# Order: lint/format (staged) -> view-line discipline -> unit tests w/ coverage -> CRAP -> build
+npx lint-staged
+npm run check:lines
+npm run test:coverage
+npm run crap
+npm run build
