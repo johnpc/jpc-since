@@ -126,12 +126,12 @@ npx cap sync ios       # sync web build into the iOS project
 
 - **iOS bundle id / Android package:** `com.johncorser.since`. Apple **team id `JW5SC3NYUV`**.
   `ITSAppUsesNonExemptEncryption=false`.
-- **AWS:** profile `personal`, region `us-west-2`.
+- **AWS:** profile `personal`, region `us-west-2`. Amplify app id `d2kzzm3radlcp1` (branch `main`).
 - **CI:** `.github/workflows/ci.yml` (quality + Gherkin acceptance) blocks PRs.
   `ios-deploy.yml` archives + uploads to TestFlight; `android-deploy.yml` publishes a debug
   APK to a GitHub Release — both after CI succeeds on `main`.
-- `scripts/prod-config.mjs` `APP_ID` is a placeholder until the `main` Amplify app exists
-  (or set `AMPLIFY_APP_ID`).
+- `scripts/prod-config.mjs` pulls outputs from app `d2kzzm3radlcp1` branch `main` (override with
+  `AMPLIFY_APP_ID`).
 
 ## Decisions
 

@@ -22,7 +22,7 @@ import { promisify } from 'node:util';
 
 const run = promisify(execFile);
 
-const APP_ID = process.env.AMPLIFY_APP_ID ?? 'REPLACE_WITH_SINCE_APP_ID';
+const APP_ID = process.env.AMPLIFY_APP_ID ?? 'd2kzzm3radlcp1';
 const BRANCH = 'main';
 const REGION = 'us-west-2';
 const PROFILE = 'personal';
