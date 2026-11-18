@@ -7,6 +7,13 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), legacy()],
+  // Node 26: the package.json test scripts run vitest with
+  // NODE_OPTIONS=--no-experimental-webstorage. Node 26 defines
+  // globalThis.localStorage as an own property whose value is undefined (Web
+  // Storage without --localstorage-file), and the jsdom environment does not
+  // overwrite existing globals, so tests would see localStorage === undefined.
+  // The flag removes Node's property and jsdom's real storage comes through.
+  // Run tests via `npm test` / `npm run test:coverage`, not bare `npx vitest`.
   test: {
     globals: true,
     environment: 'jsdom',
