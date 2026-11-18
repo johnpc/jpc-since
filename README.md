@@ -1,5 +1,9 @@
 # Since
 
+> **Platform status: web only (for now).** The web app is the supported platform. The iOS and
+> Android projects stay in the repo but are not published or deployed, and the iOS Deploy and
+> Android Deploy workflows are disabled (re-enable with `gh workflow enable "<name>"`).
+
 **How long has it been?** Since is a count-**up** app: it tracks the time _since_ something last
 happened — "4 weeks since haircut", "12 days since you watered the fern" — and lets you reset a
 counter with a tap when the event happens again. Each reset is logged, so every counter builds a
