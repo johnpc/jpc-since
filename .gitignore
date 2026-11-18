@@ -42,3 +42,6 @@ amplifyconfiguration*
 
 # claude code (local agent state + git worktrees)
 .claude
+
+# iOS launch smoke output (scripts/ios-launch-smoke.sh)
+ios-smoke-output/
